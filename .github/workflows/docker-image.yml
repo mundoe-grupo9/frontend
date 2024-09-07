@@ -43,8 +43,8 @@ jobs:
         HOSTNAME: ${{ secrets.EC2_PUBLIC_IP }}
       run: |
         ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${HOSTNAME} << 'EOF'
-          docker pull mundosegrupo9/frontend:pushAction02
-          docker stop frontend || true
-          docker rm frontend || true
-          docker run -d --name frontend -p 80:80 mundosegrupo9/frontend:pushAction02
+          sudo docker pull mundosegrupo9/frontend:pushAction02
+          sudo docker stop frontend || true
+          sudo docker rm frontend || true
+          sudo docker run -d --name frontend -p 80:80 mundosegrupo9/frontend:pushAction02
         EOF
