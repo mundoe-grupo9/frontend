@@ -8,13 +8,13 @@ FROM node
 WORKDIR /app
 
 # Copia el package.json y package-lock.json
-COPY frontend/package*.json ./
+COPY package*.json .
 
 # Instala las dependencias de la aplicación, incluyendo PM2
 RUN npm install -g pm2 && npm install
 
 # Copia el resto de la aplicación
-COPY frontend/ ./
+COPY . .
 
 # Expone el puerto
 EXPOSE 3000
