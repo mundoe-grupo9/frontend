@@ -36,7 +36,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: mundosegrupo9/frontend:latest
+        tags: mundosegrupo9/frontend:pushAction02
 
     - name: Post image digest
       run: echo ${{ steps.build-and-push.outputs.digest }}
