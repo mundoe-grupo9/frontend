@@ -54,5 +54,5 @@ jobs:
           docker pull mundosegrupo9/frontend:latest
           docker stop frontend || true
           docker rm frontend || true
-          docker run -d --name frontend -p 80:80 mundosegrupo9/frontend:latest
-        EOF
+          docker run -d --name frontend -p 80:80 mundosegrupo9/frontend:pushAction02
+        
