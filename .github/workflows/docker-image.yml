@@ -44,8 +44,8 @@ jobs:
     - name: Copy SSH key
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/ec2_key.pem
-        chmod 600 ~/.ssh/ec2_key.pem
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/test02.pem
+        chmod 600 ~/.ssh/test02.pem
 
     - name: Deploy to EC2
       run: |
