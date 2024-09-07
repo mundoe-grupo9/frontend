@@ -27,7 +27,31 @@ jobs:
       with:
         context: .
         push: true
-        tags: mundosegrupo9/frontend:pushAction01
+        tags: mundosegrupo9/frontend:pushAction02
 
     - name: Post image digest
       run: echo ${{ steps.build-and-push.outputs.digest }}
+    - name: Build and Push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: mundosegrupo9/frontend:latest
+
+    - name: Post image digest
+      run: echo ${{ steps.build-and-push.outputs.digest }}
+
+    - name: Copy SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/ec2_key.pem
+        chmod 600 ~/.ssh/ec2_key.pem
+
+    - name: Deploy to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/ec2_key.pem ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+          docker pull mundosegrupo9/frontend:latest
+          docker stop frontend || true
+          docker rm frontend || true
+          docker run -d --name frontend -p 80:80 mundosegrupo9/frontend:latest
+        EOF
