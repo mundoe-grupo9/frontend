@@ -37,14 +37,15 @@ jobs:
         echo "${{ secrets.EC2_SSH_KEY }}" > private_key
         chmod 600 private_key
 
-    - name: Build & Deploy2
+    - name: Build & Deploy
       env:
-        PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-        HOSTNAME: ${{ secrets.EC2_PUBLIC_IP }}
+          PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          HOSTNAME: ${{ secrets.EC2_PUBLIC_IP }}
       run: |
-        ssh -o StrictHostKeyChecking=no -i PRIVATE_KEY ec2-user@HOSTNAME << 'EOF'
-          sudo docker pull mundosegrupo9/frontend:pushAction02
-          sudo docker stop frontend || true
-          sudo docker rm frontend || true
-          sudo docker run -d --name frontend -p 80:80 mundosegrupo9/frontend:pushAction02
-        EOF
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${HOSTNAME} << 'EOF'
+            sudo docker pull mundosegrupo9/frontend:pushAction02
+            sudo docker stop frontend || true
+            sudo docker rm frontend || true
+            sudo docker run -d --name frontend -p 80:80 mundosegrupo9/frontend:pushAction02
+          EOF
+      
