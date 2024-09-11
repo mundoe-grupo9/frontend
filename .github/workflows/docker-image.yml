@@ -46,6 +46,6 @@ jobs:
             sudo docker pull mundosegrupo9/frontend:pushAction02
             sudo docker stop frontend || true
             sudo docker rm frontend || true
-            sudo docker run -d --name frontend -p 80:80 mundosegrupo9/frontend:pushAction02
+            sudo docker run -d --name frontend -p 5000:80 mundosegrupo9/frontend:pushAction02
           EOF
       
